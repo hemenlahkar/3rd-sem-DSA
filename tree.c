@@ -1,10 +1,7 @@
 #include<stdio.h>
 #include <stdlib.h>
+#include "stack_node.c"
 
-typedef struct node {
-    int data;
-    struct node *left, *right;
-} Node;
 
 void inorder(Node *root)
 {
