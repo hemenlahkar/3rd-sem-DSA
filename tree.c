@@ -1,11 +1,27 @@
-#include<stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include "stack_node.c"
 
+void preorder_iterative(Node *root)
+{
+    Stack *top = NULL;
+    Node *popped_item;
+    push(&top, root);
+    while (isEmpty(top))
+    {
+        pop(&top, &popped_item);
+        printf(" %d", popped_item->data);
+        if(popped_item->right != NULL)
+            push(&top, popped_item->right);
+        if(popped_item->left != NULL)
+            push(&top, popped_item->left);
+    }
+}
 
 void inorder(Node *root)
 {
-    if(root == NULL) return;
+    if (root == NULL)
+        return;
     inorder(root->left);
     printf(" %d", root->data);
     inorder(root->right);
@@ -13,7 +29,8 @@ void inorder(Node *root)
 
 void preorder(Node *root)
 {
-    if(root == NULL) return;
+    if (root == NULL)
+        return;
     printf(" %d", root->data);
     preorder(root->left);
     preorder(root->right);
@@ -21,7 +38,8 @@ void preorder(Node *root)
 
 void postorder(Node *root)
 {
-    if(root == NULL) return;
+    if (root == NULL)
+        return;
     postorder(root->left);
     postorder(root->right);
     printf(" %d", root->data);
@@ -30,10 +48,10 @@ void postorder(Node *root)
 int insert(Node **root, int item)
 {
     Node *newNode, *location, *parent;
-    if(*root == NULL)
+    if (*root == NULL)
     {
-        newNode = (Node *) malloc(sizeof(Node));
-        if(newNode == NULL)
+        newNode = (Node *)malloc(sizeof(Node));
+        if (newNode == NULL)
         {
             printf("Insufficient memory!\n");
             return 0;
@@ -43,12 +61,12 @@ int insert(Node **root, int item)
         *root = newNode;
         return 1;
     }
-    for(parent = NULL, location = *root; location != NULL && location->data != item;)
+    for (parent = NULL, location = *root; location != NULL && location->data != item;)
     {
         parent = location;
         location = location->data > item ? location->left : location->right;
     }
-    if(location != NULL)
+    if (location != NULL)
     {
         printf("Node with value %d already exists!\n", item);
         return 0;
@@ -56,7 +74,7 @@ int insert(Node **root, int item)
     newNode = (Node *)malloc(sizeof(Node));
     newNode->data = item;
     newNode->left = newNode->right = NULL;
-    if(parent->data > item)
+    if (parent->data > item)
         parent->left = newNode;
     else
         parent->right = newNode;
