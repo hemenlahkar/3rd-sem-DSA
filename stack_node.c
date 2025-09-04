@@ -48,6 +48,8 @@ int pop(Stack **head, Node **popped_item)
         printf("Stack already empty!\n");
         return 0;
     }
+    if ((*head)->data == NULL)
+        return 0;
     *popped_item = (*head)->data;
     Stack *pop = *head;
     *head = (*head)->next;
