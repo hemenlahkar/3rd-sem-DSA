@@ -43,12 +43,12 @@ int push(Stack **top, Node *item)
 
 int pop(Stack **head, Node **popped_item)
 {
-    if (isempty(*head))
+    if (isEmpty(*head))
     {
         printf("Stack already empty!\n");
         return 0;
     }
-    popped_item = (*head)->data;
+    *popped_item = (*head)->data;
     Stack *pop = *head;
     *head = (*head)->next;
     free(pop);
