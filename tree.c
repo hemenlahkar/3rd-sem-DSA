@@ -7,7 +7,7 @@ void preorder_iterative(Node *root)
     Stack *top = NULL;
     Node *popped_item;
     push(&top, root);
-    while (isEmpty(top))
+    while (!isEmpty(top))
     {
         pop(&top, &popped_item);
         printf(" %d", popped_item->data);
@@ -16,6 +16,28 @@ void preorder_iterative(Node *root)
         if(popped_item->left != NULL)
             push(&top, popped_item->left);
     }
+}
+
+void postorder_iterative(Node *root)
+{
+    Stack *S1 = NULL, *S2 = NULL;
+    Node *popped_item;
+    push(&S1, root);
+    while(!isEmpty(S1))
+    {
+        if(pop(&S1, &popped_item))
+            push(&S2, popped_item);
+        if(popped_item->left != NULL)
+            push(&S1, popped_item->left);
+        if(popped_item->right != NULL)
+            push(&S1, popped_item->right);
+    }
+    while (!isEmpty(S2))
+    {
+        pop(&S2, &popped_item);
+        printf(" %d", popped_item->data);
+    }
+    
 }
 
 void inorder(Node *root)
@@ -95,8 +117,8 @@ int main()
     printf("\nInorder: ");
     inorder(root);
     printf("\nPreorder: ");
-    preorder(root);
+    preorder_iterative(root);
     printf("\nPostorder: ");
-    postorder(root);
+    postorder_iterative(root);
     return 0;
 }
