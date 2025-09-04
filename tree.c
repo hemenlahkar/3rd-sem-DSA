@@ -2,6 +2,49 @@
 #include <stdlib.h>
 #include "stack_node.c"
 
+int delete(Node **root, int item)
+{
+    Node *location, *parent, *inorder_successor_location, *inorder_successor_parent;
+    for (parent = NULL, location = *root; location != NULL && location->data != item;)
+    {
+        parent = location;
+        location = location->data > item ? location->left : location->right;
+    }
+
+    if (location == NULL)
+    {
+        printf("Couldn't find the item to be deleted!\n");
+        return 0;
+    }
+
+    if (location->left == NULL || location->right == NULL)
+    {
+        if (location == *root)
+        {
+            *root = (*root)->left != NULL ? (*root)->left : (*root)->right;
+            free(location);
+            return 1;
+        }
+        if (location == parent->left)
+            parent->left = location->left != NULL ? location->left : location->right;
+        else
+            parent->right = location->left != NULL ? location->left : location->right;
+    }
+    else
+    {
+        for (inorder_successor_parent = location, inorder_successor_location = location->right; inorder_successor_location->left != NULL;)
+        {
+            inorder_successor_parent = inorder_successor_location;
+            inorder_successor_location = inorder_successor_location->left;
+        }
+        location->data = inorder_successor_location->data;
+        if (inorder_successor_location == inorder_successor_parent->left)
+            inorder_successor_parent->left = inorder_successor_location->left != NULL ? inorder_successor_location->left : inorder_successor_location->right;
+        else
+            inorder_successor_parent->right = inorder_successor_location->left != NULL ? inorder_successor_location->left : inorder_successor_location->right;
+    }
+}
+
 void inorder_iterative(Node *root)
 {
     Stack *S = NULL;
@@ -139,5 +182,8 @@ int main()
     preorder_iterative(root);
     printf("\nPostorder: ");
     postorder_iterative(root);
+    delete(&root, 30);
+    printf("\nInorder after deleting 30: ");
+    inorder_iterative(root);
     return 0;
 }
