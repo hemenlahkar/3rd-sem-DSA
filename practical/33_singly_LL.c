@@ -138,7 +138,17 @@ int delete_from_position(Node **head, int position)
     return 1;
 }
 
-
+int search_element(Node *head, int element)
+{
+    int index = 0;
+    while(head != NULL)
+    {
+        if(head->data == element) return index;
+        index++;
+        head = head->next;
+    }
+    return -1;
+}
 
 int main()
 {
@@ -151,6 +161,8 @@ int main()
     
     printList(head);
     printf("\nThe list contains %d elements\n", no_of_nodes(head));
+    int search_index = search_element(head, 9);
+    if(search_index>=0) printf("Element 9 exits at index %d", search_index);
 
     return 0;
 }
