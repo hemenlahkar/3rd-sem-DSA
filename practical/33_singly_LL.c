@@ -17,6 +17,17 @@ void printList(Node *head)
     putchar('\n');
 }
 
+int no_of_nodes(Node *head)
+{
+    int count = 0;
+    while (head != NULL)
+    {
+        count++;
+        head = head->next;
+    }
+    return count;
+}
+
 Node *createNode(int x)
 {
     Node *ret = (Node *)malloc(x * sizeof(int));
@@ -139,6 +150,7 @@ int main()
     for(int i = 1; i < 6 && insert_last(&head, i); i++);
     
     printList(head);
+    printf("\nThe list contains %d elements\n", no_of_nodes(head));
 
     return 0;
 }
