@@ -12,7 +12,7 @@ void printList(Node *head)
     {
         printf("%d", head->data);
         head = head->next;
-        if(head->next != NULL) printf(", ");
+        if(head != NULL) printf(", ");
     }
     putchar('\n');
 }
@@ -43,7 +43,7 @@ int insert_last(Node **head, int x)
 {
     Node *temp = createNode(x);
     if(temp == NULL) return 0;
-    if(*head = NULL)
+    if(*head == NULL)
     {
         *head = temp;
         return 1;
@@ -132,5 +132,13 @@ int delete_from_position(Node **head, int position)
 int main()
 {
     Node *head = createNode(3);
+    
+    for(int i = 1; i < 6; i++)
+        insert_first(&head, i*i);
+
+    for(int i = 1; i < 6 && insert_last(&head, i); i++);
+    
+    printList(head);
+
     return 0;
 }
