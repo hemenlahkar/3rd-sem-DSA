@@ -102,6 +102,22 @@ int delete_first(Node **head)
     return 1;
 }
 
+int delete_last(Node **head)
+{
+    if(*head == NULL)
+    {
+        printf("\nCouldn't delete node: list is empty!!\n");
+        return 0;
+    }
+    Node *location = *head;
+    while(location->next != NULL) location = location->next;
+    Node *temp = location;
+    location = location->prev;
+    location->next = NULL;
+    free(temp);
+    return 1;
+}
+
 int main()
 {
     Node *head = NULL;
@@ -114,6 +130,7 @@ int main()
     insert_at_position(&head, 100, 4);
     printList(head);
     delete_first(&head);
+    delete_last(&head);
     printList(head);
     return 0;
 }
