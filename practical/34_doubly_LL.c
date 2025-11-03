@@ -17,6 +17,18 @@ void printList(Node *head)
     putchar('\n');
 }
 
+void printListReverse(Node *head)
+{
+    while(head->next != NULL) head = head->next;
+    while(head != NULL)
+    {
+        printf("%d", head->data);
+        head = head->prev;
+        if(head != NULL) printf(", ");
+    }
+    putchar('\n');
+}
+
 Node *createNode(int x)
 {
     Node *temp = (Node *)malloc(sizeof(Node));
@@ -52,5 +64,6 @@ int main()
         insert_first(&head, i+2);
 
     printList(head);
+    printListReverse(head);
     return 0;
 }
