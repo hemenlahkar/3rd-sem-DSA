@@ -73,6 +73,21 @@ int insert_last(Node **head, int x)
     return 1;
 }
 
+int insert_at_position(Node **head, int x, int position)
+{
+    Node *location, *temp = createNode(x);
+    int i = 0;
+    if(temp == NULL) return 0;
+    if(position < 0) return 0;
+    if(*head == NULL) return 0;
+    for(location = *head; location != NULL && i < position - 1; location = location->next, i++);
+
+    temp->next = location->next;
+    temp->prev = location;
+    location->next = temp;
+    return 1;
+}
+
 int main()
 {
     Node *head = NULL;
@@ -82,5 +97,7 @@ int main()
         insert_last(&head, i * i + 3);
     printList(head);
     printListReverse(head);
+    insert_at_position(&head, 100, 4);
+    printList(head);
     return 0;
 }
