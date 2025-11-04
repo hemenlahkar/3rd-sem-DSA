@@ -145,6 +145,18 @@ int delete_from_position(Node **head, int position)
     return 1;
 }
 
+int search_element(Node *head, int element)
+{
+    int index = 0;
+    while(head != NULL)
+    {
+        if(head->data == element) return index;
+        index++;
+        head = head->next;
+    }
+    return -1;
+}
+
 int main()
 {
     Node *head = NULL;
@@ -160,5 +172,7 @@ int main()
     delete_last(&head);
     delete_from_position(&head, 4);
     printList(head);
+
+    printf("\nElement 7 is found at index %d", search_element(head, 7));
     return 0;
 }
