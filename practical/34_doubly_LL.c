@@ -118,6 +118,33 @@ int delete_last(Node **head)
     return 1;
 }
 
+int delete_from_position(Node **head, int position)
+{
+    if(position < 0)
+    {
+        printf("\nCouldn't delete Node: Invalid poisition Entred!!\n");
+        return 0;
+    }
+    if(*head == NULL)
+    {
+        printf("\nCouldn't delete Node: List is empty!!\n");
+        return 0;
+    }
+    Node *location = *head;
+    int i;
+    for(i = 0; location != NULL && i < position - 1;location = location->next, i++);
+    if(location == NULL)
+    { 
+        printf("\nInvalid position entered!\n");
+        return 0;
+    }
+    Node *temp = location;
+    location->prev->next = location->next;
+    location->next->prev = location->prev;
+    free(temp);
+    return 1;
+}
+
 int main()
 {
     Node *head = NULL;
@@ -131,6 +158,7 @@ int main()
     printList(head);
     delete_first(&head);
     delete_last(&head);
+    delete_from_position(&head, 4);
     printList(head);
     return 0;
 }
