@@ -61,12 +61,30 @@ int pop(Stack *s, int *popped_item)
     return 1;
 }
 
+int peek(Stack *s)
+{
+    if(s == NULL)
+    {
+        printf("\nFailed to peek!\n");
+        return -99999;
+    }
+    if(s->arr == NULL)
+    {
+        printf("\nFailed to peek!\n");
+        return -99999;
+    }
+    return s->arr[s->top];
+}
+
 int main()
 {
     Stack *s = createStack(10);
     int popped_item;
     for(int i = 0; i < 10; i++)
         push(s, i + 1);
+    
+    printf("\nTop of the stack: %d\n", peek(s));
+    
     while(pop(s, &popped_item))
         printf("%d, ", popped_item);
     return 0;
